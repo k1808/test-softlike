@@ -209,4 +209,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public static function create($name, $email, $password){
+        $user = new static();
+        $user->username = $name;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        return $user;
+    }
 }

@@ -19,7 +19,7 @@ class m200911_091652_create_profile_table extends Migration
     {
         $this->createTable('{{%profile}}', [
             'id' => $this->primaryKey(),
-            ' user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->notNull(),
             'gender' => $this->string(5)->notNull(),
             'first_name' => $this->string(128)->notNull(),
             'last_name' => $this->string(128)->notNull(),
@@ -35,14 +35,14 @@ class m200911_091652_create_profile_table extends Migration
         $this->createIndex(
             '{{%idx-profile- user_id}}',
             '{{%profile}}',
-            ' user_id'
+            'user_id'
         );
 
         // add foreign key for table `{{%user}}`
         $this->addForeignKey(
             '{{%fk-profile- user_id}}',
             '{{%profile}}',
-            ' user_id',
+            'user_id',
             '{{%user}}',
             'id',
             'CASCADE'

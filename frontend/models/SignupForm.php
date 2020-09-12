@@ -14,6 +14,15 @@ class SignupForm extends Model
     public $email;
     public $password;
 
+    public $user_id;
+
+    public $gender;
+    public $first_name;
+    public $last_name;
+    public $country_id;
+    public $city_id;
+    public $birth_date;
+    public $phone;
 
     /**
      * {@inheritdoc}
@@ -21,10 +30,14 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            [['gender'], 'string', 'max' => 5],
+            ['gender', 'required'],
+
+            [['first_name'], 'required'],
+            [['first_name'], 'string', 'max' => 128],
+
+            [['last_name'], 'string', 'max' => 128],
+            [['last_name'], 'required'],
 
             ['email', 'trim'],
             ['email', 'required'],
@@ -34,6 +47,14 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            [['city_id'], 'required'],
+            [['city_id'], 'integer'],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
+
+            [['birth_date'], 'required'],
+            [['birth_date'], 'safe'],
+
         ];
     }
 
@@ -47,14 +68,14 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
-        $user = new User();
-        $user->username = $this->username;
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+        $fullName = $this->gender.' '. $this->first_name . ' ' . $this->last_name;
+        $user = User::create($fullName, $this->email, $this->password);
+        $user->save();
+        $profile = Profile::create($user->id, $this->gender, $this->first_name,
+          $this->last_name, $this->city_id, $this->phone, $this->birth_date);
+        $profile->save();
+
+        return $this->sendEmail($user);
 
     }
 

@@ -1,6 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\User;
+use frontend\models\City;
+use frontend\models\Country;
+use frontend\models\Profile;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -151,8 +155,24 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionSignup()
-    {
+    {   //debug(Yii::$app->request->post());
+        //$us = User::create( 'riks', 'krt@i.ua', '111' );
+        //$us = Profile::create(1, 'Mr', 'ket', 'riks', 5, 10, '1984.04.30' );
+        //$us->save();
+        //debug($us);
         $model = new SignupForm();
+        $cityArray = City::find()->indexBy('id')->asArray()->all();
+        //debug($cityArray);
+        $city = [];
+        for ($i = 1; $i<count($cityArray); $i++ ){
+            array_push($city, $cityArray[$i]['name']);
+        }
+
+        //$country = Country::find()->where(['id'=>2])->one();
+        //debug($country);
+        //echo $country->id;
+        //debug($city);
+
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
@@ -160,6 +180,7 @@ class SiteController extends Controller
 
         return $this->render('signup', [
             'model' => $model,
+            'city' => $city
         ]);
     }
 
