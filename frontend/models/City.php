@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "city".
  *
  * @property int $id
- * @property int $country_id
  * @property string $name
  *
  * @property Profile[] $profiles
@@ -29,8 +28,7 @@ class City extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['country_id', 'name'], 'required'],
-            [['country_id'], 'integer'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 128],
         ];
     }
@@ -42,7 +40,6 @@ class City extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'country_id' => 'Country ID',
             'name' => 'Name',
         ];
     }
@@ -55,14 +52,5 @@ class City extends \yii\db\ActiveRecord
     public function getProfiles()
     {
         return $this->hasMany(Profile::className(), ['city_id' => 'id']);
-    }
-
-    public function getArrayCity(){
-        $cityArray = $this::find()->indexBy('id')->asArray()->all();
-        /*$city = [];
-        for ($i = 1; $i<count($cityArray); $i++ ){
-            array_push($city, $cityArray[$i]['name']);
-        }*/
-        return $cityArray;
     }
 }

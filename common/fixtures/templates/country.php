@@ -7,6 +7,6 @@ return [
   'name' => $faker->country,
 ];
 
-//php yii fixture/generate country --count=20
+//php yii fixture/generate country --count=10
 
 //php yii fixture/load Country

@@ -10,7 +10,7 @@ use yii\db\Migration;
  * - `{{%country}}`
  * - `{{%city}}`
  */
-class m200911_091652_create_profile_table extends Migration
+class m200913_055620_create_profile_table extends Migration
 {
     /**
      * {@inheritdoc}

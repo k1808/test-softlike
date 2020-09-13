@@ -3,13 +3,17 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
+/* @var $city \frontend\models\City */
+/* @var $country \frontend\models\Country */
 
-use frontend\models\City;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
+$cityArray = ArrayHelper::getColumn($city, 'name');
+$countryArray = ArrayHelper::getColumn($country, 'name');
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -29,8 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-6">
             <?= $form->field($model, 'last_name')->textInput() ?>
         </div>
-        <div class="col-lg-6">
-            <?= $form->field($model, 'city_id')->dropDownList($city)->label('City'); ?>
+        <div class="col-lg-4">
+            <?= $form->field($model, 'city_id')->dropDownList($cityArray)->label('City'); ?>
+        </div>
+        <div class="col-lg-4">
+            <?= $form->field($model, 'country_id')->dropDownList($countryArray)->label('Country'); ?>
         </div>
         <div class="col-lg-4">
             <?= $form->field($model, 'birth_date')->input('date') ?>

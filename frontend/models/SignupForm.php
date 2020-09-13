@@ -50,7 +50,10 @@ class SignupForm extends Model
 
             [['city_id'], 'required'],
             [['city_id'], 'integer'],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
+
+            [['country_id'], 'required'],
+            [['country_id'], 'integer'],
+
 
             [['birth_date'], 'required'],
             [['birth_date'], 'safe'],
@@ -72,7 +75,7 @@ class SignupForm extends Model
         $user = User::create($fullName, $this->email, $this->password);
         $user->save();
         $profile = Profile::create($user->id, $this->gender, $this->first_name,
-          $this->last_name, $this->city_id, $this->phone, $this->birth_date);
+          $this->last_name, $this->city_id, $this->country_id, $this->phone, $this->birth_date);
         $profile->save();
 
         return $this->sendEmail($user);

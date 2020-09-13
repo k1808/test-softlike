@@ -9,6 +9,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -155,23 +156,10 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionSignup()
-    {   //debug(Yii::$app->request->post());
-        //$us = User::create( 'riks', 'krt@i.ua', '111' );
-        //$us = Profile::create(1, 'Mr', 'ket', 'riks', 5, 10, '1984.04.30' );
-        //$us->save();
-        //debug($us);
+    {
         $model = new SignupForm();
-        $cityArray = City::find()->indexBy('id')->asArray()->all();
-        //debug($cityArray);
-        $city = [];
-        for ($i = 1; $i<count($cityArray); $i++ ){
-            array_push($city, $cityArray[$i]['name']);
-        }
-
-        //$country = Country::find()->where(['id'=>2])->one();
-        //debug($country);
-        //echo $country->id;
-        //debug($city);
+        $city = City::find()->indexBy('id')->asArray()->all();
+        $country = Country::find()->indexBy('id')->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
@@ -180,7 +168,8 @@ class SiteController extends Controller
 
         return $this->render('signup', [
             'model' => $model,
-            'city' => $city
+            'city' => $city,
+            'country' => $country
         ]);
     }
 
