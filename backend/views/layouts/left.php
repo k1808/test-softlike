@@ -5,7 +5,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <img src="/img/tom.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
                 <p>Alexander Pierce</p>
@@ -60,7 +60,13 @@
                             ],
                         ],
                     ],
+                    ['label' => 'Profile','icon' => 'users', 'url' => ['/profile']],
+                    ['label' => 'Product','icon' => 'shopping-cart', 'url' => ['/product']],
+                    ['label' => 'Order','icon' => 'shopping-bag', 'url' => ['/order']],
+                    ['label' => 'City','icon' => 'building', 'url' => ['/city']],
+                    ['label' => 'Country','icon' => 'globe', 'url' => ['/country']],
                 ],
+
             ]
         ) ?>
 

@@ -6,6 +6,7 @@
 /* @var $city \common\models\City */
 /* @var $country \common\models\Country */
 
+use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
