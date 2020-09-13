@@ -218,6 +218,10 @@ class User extends ActiveRecord implements IdentityInterface
         $user->setPassword($password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+
+        $customer = Yii::$app->authManager;
+        $customerRole = $customer->getRole('customer');
+        $customer->assign($customerRole, $user->getId());
         return $user;
     }
 }
