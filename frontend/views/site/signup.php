@@ -3,8 +3,8 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
-/* @var $city \frontend\models\City */
-/* @var $country \frontend\models\Country */
+/* @var $city \common\models\City */
+/* @var $country \common\models\Country */
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -34,19 +34,28 @@ $countryArray = ArrayHelper::getColumn($country, 'name');
             <?= $form->field($model, 'last_name')->textInput() ?>
         </div>
         <div class="col-lg-4">
-            <?= $form->field($model, 'city_id')->dropDownList($cityArray)->label('City'); ?>
+            <?= $form->field($model, 'city_id')->widget(\kartik\select2\Select2::class,['data'=>ArrayHelper::getColumn(\common\models\City::find()->all(), 'name')])->label('City'); ?>
         </div>
         <div class="col-lg-4">
-            <?= $form->field($model, 'country_id')->dropDownList($countryArray)->label('Country'); ?>
+            <?= $form->field($model, 'country_id')->widget(\kartik\select2\Select2::class,['data'=>ArrayHelper::getColumn(\common\models\Country::find()->all(), 'name')])->label('Country'); ?>
         </div>
         <div class="col-lg-4">
-            <?= $form->field($model, 'birth_date')->input('date') ?>
+            <?= $form->field($model, 'birth_date')->widget(DatePicker::class,[
+              'name' => 'check_issue_date',
+              'options' => ['placeholder' => 'Select issue date ...'],
+              'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true
+              ]
+            ]); ?>
         </div>
         <div class="col-lg-4">
             <?= $form->field($model, 'email')->input('email') ?>
         </div>
         <div class="col-lg-4">
-            <?= $form->field($model, 'phone')->input('tel') ?>
+            <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::className(), [
+              'mask' => '999-999-9999',
+            ]) ?>
         </div>
         <div class="col-lg-4">
             <?= $form->field($model, 'password')->passwordInput() ?>

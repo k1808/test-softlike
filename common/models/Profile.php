@@ -1,9 +1,10 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
-use common\models\User;
-use Yii;
+
+use common\models\City;
+use common\models\Country;
 
 /**
  * This is the model class for table "profile".
@@ -26,6 +27,9 @@ use Yii;
  */
 class Profile extends \yii\db\ActiveRecord
 {
+
+    public $email;
+    public $password;
     /**
      * {@inheritdoc}
      */
@@ -40,7 +44,7 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'gender', 'first_name', 'last_name', 'country_id', 'city_id', 'birth_date'], 'required'],
+            [['gender', 'email', 'password', 'first_name', 'last_name', 'country_id', 'city_id', 'birth_date'], 'required'],
             [['user_id', 'country_id', 'city_id', 'qty_orders', 'total_income'], 'integer'],
             [['birth_date'], 'safe'],
             [['gender'], 'string', 'max' => 5],

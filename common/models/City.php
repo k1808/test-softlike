@@ -1,26 +1,25 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "product".
+ * This is the model class for table "city".
  *
  * @property int $id
- * @property string $ name
- * @property int $price
+ * @property string $name
  *
- * @property Order[] $orders
+ * @property Profile[] $profiles
  */
-class Product extends \yii\db\ActiveRecord
+class City extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'product';
+        return 'city';
     }
 
     /**
@@ -29,8 +28,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price'], 'required'],
-            [['price'], 'integer'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 128],
         ];
     }
@@ -43,17 +41,16 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'price' => 'Price',
         ];
     }
 
     /**
-     * Gets query for [[Orders]].
+     * Gets query for [[Profiles]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders()
+    public function getProfiles()
     {
-        return $this->hasMany(Order::className(), ['item' => 'id']);
+        return $this->hasMany(Profile::className(), ['city_id' => 'id']);
     }
 }

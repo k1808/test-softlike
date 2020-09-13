@@ -1,10 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\City;
+use common\models\Country;
 use common\models\User;
-use frontend\models\City;
-use frontend\models\Country;
-use frontend\models\Profile;
+use common\models\Profile;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;

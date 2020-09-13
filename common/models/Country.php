@@ -1,25 +1,25 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "city".
+ * This is the model class for table "country".
  *
  * @property int $id
  * @property string $name
  *
  * @property Profile[] $profiles
  */
-class City extends \yii\db\ActiveRecord
+class Country extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'city';
+        return 'country';
     }
 
     /**
@@ -30,6 +30,7 @@ class City extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 128],
+            [['name'], 'unique'],
         ];
     }
 
@@ -51,6 +52,6 @@ class City extends \yii\db\ActiveRecord
      */
     public function getProfiles()
     {
-        return $this->hasMany(Profile::className(), ['city_id' => 'id']);
+        return $this->hasMany(Profile::className(), ['country_id' => 'id']);
     }
 }
