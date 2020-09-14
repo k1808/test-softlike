@@ -61,4 +61,18 @@ class Order extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Product::className(), ['id' => 'item']);
     }
+
+    public static function create($item, $email, $password){
+        $order = new static();
+        $user->username = $name;
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+
+        $customer = Yii::$app->authManager;
+        $customerRole = $customer->getRole('customer');
+        $customer->assign($customerRole, $user->getId());
+        return $user;
+    }
 }

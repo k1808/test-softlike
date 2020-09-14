@@ -7,6 +7,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
@@ -42,15 +43,15 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         Modal::begin([
-          'header' => '<h2>Hello world</h2>',
-          'toggleButton' => ['label' => 'click me'],
+          'header' => '<h2>Basket</h2>',
+          'toggleButton' => ['label' => getSumBasket($_SESSION['basket.sum']),
+                               'class'=>'modal-basket',
+                              ],
         ]);
-
-        echo 'Say hello...';
-
         Modal::end();
         $menuItems = [
           ['label' => 'Product', 'url' => ['/product/index']],
+          ['label' => 'Profile', 'url' =>  Url::toRoute(['/user/'.Yii::$app->user->id])],
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')

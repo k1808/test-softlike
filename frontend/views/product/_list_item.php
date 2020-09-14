@@ -9,5 +9,6 @@ use yii\helpers\Html;
 <div class="product-item">
     <p><?=$model->name?></p>
     <span><?=$model->price?></span>
-    <?= Html::a('Buy', ['user/view', 'id' => '$id'], ['class' => 'product-link']) ?>
+    <?= Html::a('Buy', ['order/add', 'id' => $model->id], ['class' => 'product-link',
+                                                                'data-id'=>$model->id]) ?>
 </div>

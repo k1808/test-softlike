@@ -118,4 +118,11 @@ class Profile extends \yii\db\ActiveRecord
         $profile->birth_date = $birth_date;
         return $profile;
     }
+
+    public static function updateOrder($id, $qty_orders, $total_income){
+        $profile = Profile::findOne($id);
+        $profile->qty_orders = $qty_orders;
+        $profile->total_income = $total_income;
+        return $profile;
+    }
 }
